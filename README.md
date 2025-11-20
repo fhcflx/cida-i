@@ -126,6 +126,7 @@ Após executar o comando acima, a aplicação estará disponível em seu navegad
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+Esta é uma ferramenta experimental. Não insira dados sensíveis. As sugestões da IA exigem validação profissional. Ao usar, você concorda com os [Termos de Uso e Responsabilidade](./terms.html).
 
 _Feito com ❤️ por Francisco Felix, em 2025_

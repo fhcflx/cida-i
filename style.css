@@ -228,3 +228,13 @@ header {
 .disclaimer strong {
     color: var(--text-dark);
 }
+
+.disclaimer a {
+    color: var(--primary-blue);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.disclaimer a:hover {
+    text-decoration: underline;
+}
