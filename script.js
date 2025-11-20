@@ -1,4 +1,3 @@
-// script.js (Versão Corrigida)
 document.addEventListener('DOMContentLoaded', () => {
     // --- ELEMENTOS DO DOM ---
     const especialidadeSelect = document.getElementById('especialidade');
@@ -7,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sugerirBtn = document.getElementById('sugerir-btn');
     const modelInfoDiv = document.getElementById('model-info');
 
-    // Lista de especialidades... (continua igual)
+    // Lista de especialidades
     const ESPECIALIDADES = [
         "Acupuntura", "Alergia e Imunologia", "Anestesiologia", "Angiologia", "Cardiologia", "Cirurgia Cardiovascular", "Cirurgia da Mão", "Cirurgia de Cabeça e Pescoço", "Cirurgia do Aparelho Digestivo", "Cirurgia Geral", "Cirurgia Oncológica", "Cirurgia Pediátrica", "Cirurgia Plástica", "Cirurgia Torácica", "Cirurgia Vascular", "Clínica Médica", "Coloproctologia", "Dermatologia", "Endocrinologia e Metabologia", "Endoscopia", "Gastroenterologia", "Genética Médica", "Geriatria", "Ginecologia e Obstetrícia", "Hematologia e Hemoterapia", "Homeopatia", "Infectologia", "Mastologia", "Medicina de Emergência", "Medicina de Família e Comunidade", "Medicina do Trabalho", "Medicina do Tráfego", "Medicina Esportiva", "Medicina Física e Reabilitação", "Medicina Intensiva", "Medicina Legal e Perícia Médica", "Medicina Nuclear", "Medicina Preventiva e Social", "Nefrologia", "Neurocirurgia", "Neurologia", "Nutrologia", "Oftalmologia", "Oncologia Clínica", "Ortopedia e Traumatologia", "Otorrinolaringologia", "Patologia", "Patologia Clínica/Medicina Laboratorial", "Pediatria", "Pneumologia", "Psiquiatria", "Radiologia e Diagnóstico por Imagem", "Radioterapia", "Reumatologia", "Urologia"
     ];
@@ -22,9 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ==========================================================
-    // A CORREÇÃO ESTÁ DENTRO DESTA FUNÇÃO
-    // ==========================================================
     async function sugerirCids() {
         const especialidade = especialidadeSelect.value;
         const texto = hdaTextarea.value;
@@ -49,13 +45,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!response.ok) throw new Error(`Falha na resposta do servidor: ${response.statusText}`);
 
-            // CORREÇÃO: Recebemos o objeto completo
+            // Recebe o objeto completo
             const responseData = await response.json();
             
-            // CORREÇÃO: Passamos APENAS a lista de sugestões para exibirResultados
+            // Passa a lista de sugestões para exibirResultados
             exibirResultados(responseData.suggestions);
 
-            // CORREÇÃO: Exibimos a outra parte do objeto no lugar certo
+            // Exibe a outra parte do objeto
             modelInfoDiv.innerHTML = `Análise fornecida pelo modelo: <strong>${responseData.modelName}</strong>`;
 
         } catch (error) {
@@ -69,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function exibirResultados(cids) {
-        // Esta função agora recebe a variável 'cids' como um array, como esperado.
+        // Recebe a variável 'cids' como um array
         if (!cids || cids.length === 0) {
             listaCidsDiv.innerHTML = '<p>A IA não encontrou sugestões correspondentes. Tente detalhar mais a descrição.</p>';
             return;

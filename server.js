@@ -58,7 +58,7 @@ app.post('/sugerir-cid', async (req, res) => {
         const jsonText = response.text().replace(/```json/g, '').replace(/```/g, '');
         const suggestions = JSON.parse(jsonText);
 
-        // --- MUDANÇA AQUI: Enviamos um objeto com as sugestões E o nome do modelo ---
+        // --- Envia um objeto com as sugestões E o nome do modelo ---
         res.json({
             suggestions: suggestions,
             modelName: MODEL_NAME

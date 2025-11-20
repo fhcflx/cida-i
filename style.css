@@ -1,7 +1,7 @@
 /* public/style.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* --- Variáveis de Cor para fácil customização --- */
+/* --- Variáveis de Cor para customização --- */
 :root {
     --primary-blue: #007bff;
     --primary-blue-dark: #0056b3;
@@ -34,7 +34,7 @@ body {
 .container {
     max-width: 800px;
     margin: 0 auto;
-    background: transparent; /* O fundo agora é dos cards */
+    background: transparent; /* Fundo dos cards */
 }
 
 /* --- Cabeçalho com Gradiente --- */
@@ -95,7 +95,7 @@ header h1 {
     color: var(--text-dark);
 }
 
-/* --- Estilos Modernos para Formulários --- */
+/* --- Estilos para Formulários --- */
 select, textarea {
     width: 100%;
     padding: 12px 15px;
@@ -198,13 +198,13 @@ header {
     margin-bottom: 0.5rem;
 }
 
-/* Adicionamos uma transição suave para o logo todo quando o mouse passa por cima */
+/* Transição suave para o logo quando o mouse passa por cima */
 .logo-svg {
     transition: transform 0.3s ease;
 }
 
 .logo-svg:hover {
-    transform: scale(1.05); /* Efeito de zoom sutil, sem rotação */
+    transform: scale(1.05); /* Efeito de zoom */
 }
 
 /* --- Estilo para o Contêiner de Info do Modelo --- */
