@@ -1,11 +1,11 @@
-// script.js
+// script.js (Versão Corrigida)
 document.addEventListener('DOMContentLoaded', () => {
     // --- ELEMENTOS DO DOM ---
     const especialidadeSelect = document.getElementById('especialidade');
     const hdaTextarea = document.getElementById('hda');
     const listaCidsDiv = document.getElementById('lista-cids');
     const sugerirBtn = document.getElementById('sugerir-btn');
-    const modelInfoDiv = document.getElementById('model-info'); // Novo elemento
+    const modelInfoDiv = document.getElementById('model-info');
 
     // Lista de especialidades... (continua igual)
     const ESPECIALIDADES = [
@@ -22,6 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ==========================================================
+    // A CORREÇÃO ESTÁ DENTRO DESTA FUNÇÃO
+    // ==========================================================
     async function sugerirCids() {
         const especialidade = especialidadeSelect.value;
         const texto = hdaTextarea.value;
@@ -32,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         listaCidsDiv.innerHTML = '<p>Analisando com IA... 🧠</p>';
-        modelInfoDiv.innerHTML = ''; // Limpa a info do modelo anterior
+        modelInfoDiv.innerHTML = '';
         hdaTextarea.disabled = true;
         sugerirBtn.disabled = true;
         sugerirBtn.textContent = 'Analisando...';
@@ -46,9 +49,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!response.ok) throw new Error(`Falha na resposta do servidor: ${response.statusText}`);
 
-            // --- MUDANÇA AQUI: Processamos o novo objeto de resposta ---
+            // CORREÇÃO: Recebemos o objeto completo
             const responseData = await response.json();
+            
+            // CORREÇÃO: Passamos APENAS a lista de sugestões para exibirResultados
             exibirResultados(responseData.suggestions);
+
+            // CORREÇÃO: Exibimos a outra parte do objeto no lugar certo
             modelInfoDiv.innerHTML = `Análise fornecida pelo modelo: <strong>${responseData.modelName}</strong>`;
 
         } catch (error) {
@@ -62,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function exibirResultados(cids) {
+        // Esta função agora recebe a variável 'cids' como um array, como esperado.
         if (!cids || cids.length === 0) {
             listaCidsDiv.innerHTML = '<p>A IA não encontrou sugestões correspondentes. Tente detalhar mais a descrição.</p>';
             return;
