@@ -1,0 +1,65 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIDA.i: Assistente de Codificação Médica</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <!-- ============================================= -->
+                <!--    NOVO LOGO ESTILIZADO E ABSTRATO AQUI       -->
+                <!-- ============================================= -->
+                <svg class="logo-svg" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- A Letra 'C' Estilizada -->
+                    <path d="M48 16C50.2091 20.9333 50.2091 43.0667 48 48C43.0667 50.2091 20.9333 50.2091 16 48C13.7909 43.0667 13.7909 20.9333 16 16C20.9333 13.7909 43.0667 13.7909 48 16Z" stroke="var(--primary-blue)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                    
+                    <!-- O Símbolo Médico '+' -->
+                    <path d="M32 25V39" stroke="var(--primary-blue)" stroke-width="5" stroke-linecap="round"/>
+                    <path d="M25 32H39" stroke="var(--primary-blue)" stroke-width="5" stroke-linecap="round"/>
+                    
+                    <!-- O Ponto da IA '.i' -->
+                    <circle cx="51" cy="13" r="5" fill="var(--accent-color)"/>
+                </svg>
+                <h1>CIDA.i</h1>
+            </div>
+            <p class="subtitle">Codificação Inteligente de Doenças com Auxílio de IA</p>
+        </header>
+
+        <main>
+            <!-- O resto do conteúdo (cards) não muda -->
+            <section class="card">
+                <div class="card-header">
+                    <span class="step-number">1</span>
+                    <h2>Especialidade Médica</h2>
+                </div>
+                <select id="especialidade" name="especialidade"></select>
+            </section>
+
+            <section class="card">
+                <div class="card-header">
+                    <span class="step-number">2</span>
+                    <h2>História Clínica (HDA)</h2>
+                </div>
+                <textarea id="hha" rows="8" placeholder="Descreva o caso clínico do paciente..."></textarea>
+                <button id="sugerir-btn" class="suggest-button">Sugerir CIDs 💡</button>
+            </section>
+
+            <section class="card">
+                <div class="card-header">
+                    <span class="step-number">3</span>
+                    <h2>Sugestões da IA</h2>
+                </div>
+                <div id="lista-cids">
+                    <p>Aguardando a descrição do caso para iniciar a análise.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js" defer></script>
+</body>
+</html>
