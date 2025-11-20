@@ -36,6 +36,24 @@ A aplicação está disponível para uso na web.
 
 **CIDA.i** (Codificação Inteligente de Doenças com Auxílio de IA) é uma ferramenta de apoio projetada para profissionais da saúde. A partir de um texto descrevendo a história clínica (HDA) de um paciente e a especialidade médica, a aplicação se conecta à API do Google Gemini para analisar o contexto e sugerir os códigos da Classificação Internacional de Doenças (CID-10) mais relevantes, incluindo uma justificativa para cada sugestão.
 
+---
+
+## ⚠️ Aviso Ético e de Responsabilidade
+
+**Este é um projeto experimental e de portfólio. Seu uso em um ambiente clínico real exige a consideração dos seguintes pontos cruciais:**
+
+- **Ferramenta de Apoio:** Esta aplicação deve ser usada exclusivamente como um **apoio à codificação** para profissionais qualificados. As sugestões geradas pela IA **não substituem o julgamento clínico, a anamnese ou a avaliação de um profissional de saúde**.
+
+- **Revisão Humana Obrigatória:** Toda e qualquer sugestão fornecida pela aplicação **deve ser obrigatoriamente revisada e validada** por um profissional competente antes de ser utilizada em qualquer prontuário ou documento oficial.
+
+- **Não é um Dispositivo Médico:** A aplicação **não oferece diagnóstico, terapia ou qualquer tipo de recomendação médica**. Seu propósito é estritamente informacional e experimental.
+
+- **Proteção de Dados:** Ao utilizar a ferramenta com dados que possam identificar pacientes, o usuário é inteiramente responsável por cumprir com as leis de proteção de dados, como a LGPD (Lei Geral de Proteção de Dados), garantindo a **anonimização ou pseudonimização** das informações.
+
+> Pessoas com sinais ou sintomas de doenças devem procurar um profissional ou serviço de saúde qualificado.
+
+---
+
 ## 🏗️ Arquitetura
 
 Este projeto utiliza uma arquitetura desacoplada, com o frontend e o backend hospedados em plataformas distintas para otimizar a performance e a segurança:
