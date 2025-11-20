@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sugerirBtn.textContent = 'Analisando...';
 
         try {
-            const response = await fetch('/sugerir-cid', { // Não precisa mais do endereço completo http://localhost:3000
+            const response = await fetch('https://cida-i-backend.onrender.com/sugerir-cid', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ texto, especialidade }),
