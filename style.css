@@ -206,3 +206,26 @@ header {
 .logo-svg:hover {
     transform: scale(1.05); /* Efeito de zoom sutil, sem rotação */
 }
+
+/* --- Estilo para o Contêiner de Info do Modelo --- */
+.model-info-container {
+    text-align: right;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-top: 1.5rem;
+    font-style: italic;
+}
+
+/* --- Estilo para o Footer de Disclaimer --- */
+.disclaimer {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+.disclaimer strong {
+    color: var(--text-dark);
+}

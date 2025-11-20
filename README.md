@@ -2,18 +2,31 @@
 
 Aplicação web que utiliza a API do Google Gemini para sugerir códigos da CID-10 a partir de descrições de casos clínicos em linguagem natural.
 
+<div align="center">
+
+<!-- BADGES DE TECNOLOGIA -->
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![Node.js](https://img.shields.io/badge/Node.js-20.x-339933?style=for-the-badge&logo=node.js&logoColor=white)
 ![Express.js](https://img.shields.io/badge/Express.js-4.x-000000?style=for-the-badge&logo=express&logoColor=white)
 ![Gemini](https://img.shields.io/badge/Google-Gemini_API-4285F4?style=for-the-badge&logo=google&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)
 
-  <!-- 
-    =====================================================================
-    => AÇÃO NECESSÁRIA: Tire um screenshot da sua aplicação em funcionamento 
-    => e salve o arquivo como 'screenshot.png' na raiz deste projeto.
-    =====================================================================
-  -->
+<!-- BADGES DE DEPLOYMENT -->
+![GitHub Pages](https://img.shields.io/badge/Frontend-GitHub_Pages-222222?style=for-the-badge&logo=github&logoColor=white)
+![Render](https://img.shields.io/badge/Backend-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)
+
+</div>
+
+---
+
+## 🚀 Acessar a Aplicação
+
+A aplicação está disponível para uso na web.
+
+**[Clique aqui para acessar o CIDA.i ao vivo!](https://fhcflx.github.io/cida-i/)**
+
+<br>
+
+<div align="center">
   <img src="./screenshot.png" alt="Screenshot da aplicação CIDA.i em funcionamento" width="800"/>
 </div>
 
@@ -23,41 +36,40 @@ Aplicação web que utiliza a API do Google Gemini para sugerir códigos da CID-
 
 **CIDA.i** (Codificação Inteligente de Doenças com Auxílio de IA) é uma ferramenta de apoio projetada para profissionais da saúde. A partir de um texto descrevendo a história clínica (HDA) de um paciente e a especialidade médica, a aplicação se conecta à API do Google Gemini para analisar o contexto e sugerir os códigos da Classificação Internacional de Doenças (CID-10) mais relevantes, incluindo uma justificativa para cada sugestão.
 
-O projeto foi desenvolvido com uma arquitetura moderna de frontend e backend, focando em uma experiência de usuário limpa e intuitiva.
+## 🏗️ Arquitetura
+
+Este projeto utiliza uma arquitetura desacoplada, com o frontend e o backend hospedados em plataformas distintas para otimizar a performance e a segurança:
+
+- **Frontend:** Hospedado como um site estático no **GitHub Pages**. É responsável por toda a interface do usuário.
+- **Backend:** Hospedado como um Web Service na **Render.com**. É responsável por processar as requisições, gerenciar a chave da API do Google e se comunicar com o modelo Gemini.
+
+O fluxo é o seguinte: `Usuário no GitHub Pages ➡️ Requisição API ➡️ Backend na Render ➡️ API do Google Gemini`
 
 ---
 
 ## ✨ Funcionalidades
 
--   **Interface Moderna:** Design limpo e responsivo, focado na usabilidade.
--   **Análise por IA:** Utiliza o poder dos Large Language Models (LLM) do Google para uma compreensão semântica do texto clínico.
--   **Seleção de Especialidade:** Permite contextualizar a busca para obter resultados mais precisos.
--   **Sugestões Justificadas:** Além do código, a IA fornece uma breve explicação sobre por que cada CID é relevante.
--   **Feedback Visual:** O usuário é informado visualmente enquanto a análise está sendo processada.
+- **Interface Moderna:** Design limpo e responsivo, focado na usabilidade.
+- **Análise por IA:** Utiliza o poder dos Large Language Models (LLM) do Google para uma compreensão semântica do texto clínico.
+- **Seleção de Especialidade:** Permite contextualizar a busca para obter resultados mais precisos.
+- **Sugestões Justificadas:** Além do código, a IA fornece uma breve explicação sobre por que cada CID é relevante.
+- **Feedback Visual:** O usuário é informado visualmente enquanto a análise está sendo processada.
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-O projeto foi construído utilizando as seguintes tecnologias:
-
--   **Frontend:**
-    -   HTML5
-    -   CSS3
-    -   JavaScript (ES6+)
--   **Backend:**
-    -   Node.js
-    -   Express.js
--   **Inteligência Artificial:**
-    -   Google Gemini API (`@google/generative-ai`)
--   **Gerenciamento de Ambiente:**
-    -   `dotenv`
+- **Frontend:** HTML5, CSS3, JavaScript (ES6+)
+- **Backend:** Node.js, Express.js
+- **Inteligência Artificial:** Google Gemini API (`@google/generative-ai`)
+- **Deployment:** GitHub Pages (Frontend), Render.com (Backend)
+- **Gerenciamento de Ambiente:** `dotenv`
 
 ---
 
-## 🚀 Como Executar o Projeto
+## 🚀 Como Executar o Projeto Localmente
 
-Siga os passos abaixo para executar a aplicação em seu ambiente local.
+Siga os passos abaixo para executar a aplicação em seu ambiente local para desenvolvimento.
 
 ```bash
 # 1. Clone o repositório
@@ -98,6 +110,4 @@ Após executar o comando acima, a aplicação estará disponível em seu navegad
 
 Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
 
-<div align="center">
-Feito com ❤️ por Francisco Felix
-</div>
+_Feito com ❤️ por Francisco Felix, em 2025_

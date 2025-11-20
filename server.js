@@ -9,21 +9,25 @@ dotenv.config();
 const app = express();
 const port = 3000;
 
+// --- DEFINIR O NOME DO MODELO COMO UMA CONSTANTE ---
+const MODEL_NAME = "gemini-2.5-pro"; // Use o nome do modelo que funcionou para você
+
+// Configuração do CORS
+const corsOptions = {
+    origin: 'https://fhcflx.github.io',
+    optionsSuccessStatus: 200
+};
+
 // MIDDLEWARE
 app.use(cors()); // Permite requisições
 app.use(express.json()); // Permite ler o corpo JSON das requisições
 
-// --- NOVA LINHA MÁGICA AQUI ---
-// Serve os arquivos estáticos (HTML, CSS, JS) da pasta 'public'
-app.use(express.static('public'));
-
 // Inicializa o cliente do Gemini
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-2.5-pro" });
+const model = genAI.getGenerativeModel({ model: MODEL_NAME });
 
-// Define o endpoint da API para sugestão de CID
+// Endpoint da API
 app.post('/sugerir-cid', async (req, res) => {
-    // ... (o resto desta função continua exatamente igual)
     const { texto, especialidade } = req.body;
 
     if (!texto || !especialidade) {
@@ -52,9 +56,13 @@ app.post('/sugerir-cid', async (req, res) => {
         const result = await model.generateContent(prompt);
         const response = await result.response;
         const jsonText = response.text().replace(/```json/g, '').replace(/```/g, '');
+        const suggestions = JSON.parse(jsonText);
 
-        const jsonData = JSON.parse(jsonText);
-        res.json(jsonData);
+        // --- MUDANÇA AQUI: Enviamos um objeto com as sugestões E o nome do modelo ---
+        res.json({
+            suggestions: suggestions,
+            modelName: MODEL_NAME
+        });
 
     } catch (error) {
         console.error("Erro ao chamar a API Gemini:", error);
@@ -63,5 +71,5 @@ app.post('/sugerir-cid', async (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Servidor rodando! Acesse seu app em http://localhost:${port}`);
+    console.log(`Servidor rodando em http://localhost:${port}`);
 });

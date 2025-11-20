@@ -1,4 +1,4 @@
-<!-- public/index.html -->
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -11,18 +11,10 @@
     <div class="container">
         <header>
             <div class="logo-container">
-                <!-- ============================================= -->
-                <!--    NOVO LOGO ESTILIZADO E ABSTRATO AQUI       -->
-                <!-- ============================================= -->
                 <svg class="logo-svg" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- A Letra 'C' Estilizada -->
                     <path d="M48 16C50.2091 20.9333 50.2091 43.0667 48 48C43.0667 50.2091 20.9333 50.2091 16 48C13.7909 43.0667 13.7909 20.9333 16 16C20.9333 13.7909 43.0667 13.7909 48 16Z" stroke="var(--primary-blue)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-                    
-                    <!-- O Símbolo Médico '+' -->
                     <path d="M32 25V39" stroke="var(--primary-blue)" stroke-width="5" stroke-linecap="round"/>
                     <path d="M25 32H39" stroke="var(--primary-blue)" stroke-width="5" stroke-linecap="round"/>
-                    
-                    <!-- O Ponto da IA '.i' -->
                     <circle cx="51" cy="13" r="5" fill="var(--accent-color)"/>
                 </svg>
                 <h1>CIDA.i</h1>
@@ -31,7 +23,7 @@
         </header>
 
         <main>
-            <!-- O resto do conteúdo (cards) não muda -->
+            <!-- ... Cards 1 e 2 continuam iguais ... -->
             <section class="card">
                 <div class="card-header">
                     <span class="step-number">1</span>
@@ -39,7 +31,6 @@
                 </div>
                 <select id="especialidade" name="especialidade"></select>
             </section>
-
             <section class="card">
                 <div class="card-header">
                     <span class="step-number">2</span>
@@ -49,6 +40,7 @@
                 <button id="sugerir-btn" class="suggest-button">Sugerir CIDs 💡</button>
             </section>
 
+            <!-- Card 3: Resultados (com adição do model-info) -->
             <section class="card">
                 <div class="card-header">
                     <span class="step-number">3</span>
@@ -57,8 +49,15 @@
                 <div id="lista-cids">
                     <p>Aguardando a descrição do caso para iniciar a análise.</p>
                 </div>
+                <!-- NOVO ELEMENTO PARA EXIBIR O MODELO -->
+                <div id="model-info" class="model-info-container"></div>
             </section>
         </main>
+
+        <!-- NOVO FOOTER PARA O DISCLAIMER -->
+        <footer class="disclaimer">
+            <p><strong>⚠️ AVISO:</strong> Esta é uma ferramenta experimental (versão alfa). As informações geradas por IA não constituem recomendação de saúde, diagnóstico ou terapia. Pessoas com sinais ou sintomas de doenças devem procurar um profissional ou serviço de saúde qualificado.</p>
+        </footer>
     </div>
     <script src="script.js" defer></script>
 </body>

@@ -1,11 +1,11 @@
-// public/script.js
-
+// script.js
 document.addEventListener('DOMContentLoaded', () => {
     // --- ELEMENTOS DO DOM ---
     const especialidadeSelect = document.getElementById('especialidade');
     const hdaTextarea = document.getElementById('hda');
     const listaCidsDiv = document.getElementById('lista-cids');
-    const sugerirBtn = document.getElementById('sugerir-btn'); // Pega o novo botão
+    const sugerirBtn = document.getElementById('sugerir-btn');
+    const modelInfoDiv = document.getElementById('model-info'); // Novo elemento
 
     // Lista de especialidades... (continua igual)
     const ESPECIALIDADES = [
@@ -31,8 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // --- MELHORIA DE UX: Desabilita o formulário durante a busca ---
         listaCidsDiv.innerHTML = '<p>Analisando com IA... 🧠</p>';
+        modelInfoDiv.innerHTML = ''; // Limpa a info do modelo anterior
         hdaTextarea.disabled = true;
         sugerirBtn.disabled = true;
         sugerirBtn.textContent = 'Analisando...';
@@ -46,14 +46,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!response.ok) throw new Error(`Falha na resposta do servidor: ${response.statusText}`);
 
-            const cidsSugeridos = await response.json();
-            exibirResultados(cidsSugeridos);
+            // --- MUDANÇA AQUI: Processamos o novo objeto de resposta ---
+            const responseData = await response.json();
+            exibirResultados(responseData.suggestions);
+            modelInfoDiv.innerHTML = `Análise fornecida pelo modelo: <strong>${responseData.modelName}</strong>`;
 
         } catch (error) {
             console.error("Erro ao buscar sugestões:", error);
             listaCidsDiv.innerHTML = '<p>Ocorreu um erro ao contatar o serviço de IA. Verifique se o servidor backend está rodando e tente novamente.</p>';
         } finally {
-            // --- MELHORIA DE UX: Reabilita o formulário ao final ---
             hdaTextarea.disabled = false;
             sugerirBtn.disabled = false;
             sugerirBtn.textContent = 'Sugerir CIDs 💡';
@@ -77,11 +78,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- INICIALIZAÇÃO E EVENTOS ---
     carregarEspecialidades();
-    
-    // REMOVEMOS os listeners antigos que ficavam observando a digitação.
-    // hdaTextarea.addEventListener('input', debouncedSugerirCids);
-    // especialidadeSelect.addEventListener('change', sugerirCids);
-
-    // ADICIONAMOS o novo listener que só funciona com o clique no botão.
     sugerirBtn.addEventListener('click', sugerirCids);
 });
