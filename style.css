@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* --- Variáveis de Cor para customização --- */
+/* --- Variáveis Globais (CSS Custom Properties) --- */
 :root {
     --primary-blue: #007bff;
     --primary-blue-dark: #0056b3;
@@ -14,7 +14,7 @@
     --accent-color: #17a2b8;
 }
 
-/* --- Reset e Tipografia Base --- */
+/* --- Reset Básico e Estilos Globais do Body --- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -30,10 +30,10 @@ body {
 }
 
 /* --- Container Principal --- */
+/* Define a largura máxima e centraliza o conteúdo principal. */
 .container {
     max-width: 800px;
     margin: 0 auto;
-    background: transparent; /* Fundo dos cards */
 }
 
 /* --- Cabeçalho com Gradiente --- */
@@ -45,6 +45,7 @@ header {
 header h1 {
     font-size: 2.5rem;
     font-weight: 700;
+    /* Efeito de gradiente no texto do título. */
     background: linear-gradient(45deg, var(--primary-blue), var(--accent-color));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -52,7 +53,7 @@ header h1 {
     text-fill-color: transparent;
 }
 
-/* --- Estilo dos Cards de Seção --- */
+/* --- Estilo Padrão para os Cards de Seção --- */
 .card {
     background: var(--card-background);
     border-radius: 12px;
@@ -67,6 +68,7 @@ header h1 {
     box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.07);
 }
 
+/* Cabeçalho interno de cada card (número + título) */
 .card-header {
     display: flex;
     align-items: center;
@@ -94,7 +96,7 @@ header h1 {
     color: var(--text-dark);
 }
 
-/* --- Estilos para Formulários --- */
+/* --- Estilos para Elementos de Formulário (select, textarea) --- */
 select, textarea {
     width: 100%;
     padding: 12px 15px;
@@ -117,7 +119,7 @@ textarea {
     min-height: 120px;
 }
 
-/* --- Botão Principal --- */
+/* --- Estilo do Botão Principal de Ação --- */
 .suggest-button {
     width: 100%;
     padding: 12px;
@@ -137,12 +139,13 @@ textarea {
     transform: translateY(-2px);
 }
 
+/* Estilo para o botão quando desabilitado. */
 .suggest-button:disabled {
     background-color: #a0c4e4;
     cursor: not-allowed;
 }
 
-/* --- Card de Resultados --- */
+/* --- Seção de Resultados da IA --- */
 #lista-cids {
     padding-top: 1rem;
 }
@@ -157,6 +160,7 @@ textarea {
     animation: fadeIn 0.5s ease;
 }
 
+/* Animação sutil para a aparição dos resultados. */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
@@ -183,7 +187,7 @@ textarea {
     font-style: normal;
 }
 
-/* --- Estilos para o Novo Cabeçalho com Logo --- */
+/* --- Estilos para o Cabeçalho Principal com Logo --- */
 header {
     padding-bottom: 2rem;
     border-bottom: 1px solid var(--border-color);
@@ -206,7 +210,7 @@ header {
     transform: scale(1.05); /* Efeito de zoom */
 }
 
-/* --- Estilo para o Contêiner de Info do Modelo --- */
+/* --- Estilo para o Contêiner de Informação do Modelo de IA --- */
 .model-info-container {
     text-align: right;
     font-size: 0.8rem;
@@ -215,7 +219,7 @@ header {
     font-style: italic;
 }
 
-/* --- Estilo para o Footer de Disclaimer --- */
+/* --- Estilo para o Rodapé (Disclaimer) --- */
 .disclaimer {
     margin-top: 2rem;
     padding-top: 1.5rem;
@@ -237,4 +241,13 @@ header {
 
 .disclaimer a:hover {
     text-decoration: underline;
+}
+
+/* --- Estilo para Mensagens de Erro no Card de Resultados --- */
+.error-message {
+    color: #721c24; /* Vermelho escuro */
+    background-color: #f8d7da; /* Fundo rosa claro */
+    border: 1px solid #f5c6cb; /* Borda vermelha clara */
+    padding: 1rem;
+    border-radius: 8px;
 }
