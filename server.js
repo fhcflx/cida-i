@@ -18,13 +18,19 @@ const MODEL_NAME = "gemini-2.5-pro"; // Usando o modelo mais recente para melhor
 
 // --- CONFIGURAÇÃO DE CORS DINÂMICA ---
 // Lista de origens permitidas
-const whitelist = ['https://fhcflx.github.io', 'null'];
+const allowedOrigins = [
+    'https://fhcflx.github.io', // Sua URL de produção no GitHub Pages
+    'http://localhost:5500',    // Endereço comum para o Live Server do VS Code
+    'http://127.0.0.1:5500',    // Alternativa para o Live Server
+    'null'                      // Permite requisições de arquivos abertos localmente (file://)
+];
 
 const corsOptions = {
     origin: function (origin, callback) {
-        // A origem 'null' é comum para arquivos abertos localmente ('file://...').
-        // Se a origem estiver na whitelist OU se não houver origem (ex: Postman), permite.
-        if (whitelist.includes(origin) || !origin) {
+        // A 'origin' é a URL que está fazendo a requisição (ex: 'http://localhost:5500').
+        // Se a origem estiver na lista de permissões (allowedOrigins) OU se não houver origem
+        // (como em requisições de servidor para servidor ou ferramentas como Postman), permite.
+        if (allowedOrigins.includes(origin) || !origin) {
             callback(null, true);
         } else {
             callback(new Error('Não permitido por CORS'));
@@ -33,7 +39,7 @@ const corsOptions = {
 }
 
 // --- MIDDLEWARE (Funções que rodam a cada requisição) ---
-app.use(cors(corsOptions)); // ATENÇÃO: `app.use(cors());` permite todas as origens. Para produção, troque por `app.use(cors(corsOptions));`
+app.use(cors(corsOptions)); // Aplica as regras de CORS que definimos acima
 app.use(express.json()); // Permite ler o corpo JSON das requisições
 
 // --- INSTRUÇÃO DE SISTEMA PARA SEGURANÇA E FOCO ---

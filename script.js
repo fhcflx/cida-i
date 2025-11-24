@@ -51,10 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Bloco try...catch para lidar com sucessos e falhas na comunicação com o backend.
         try {
-            // Envia a requisição para o backend local.
-            // Produção: (...) https://cida-i-backend.onrender.com/sugerir-cid
-            // Desenvolvimento: (...) http://localhost:3000/sugerir-cid
-            const response = await fetch('https://cida-i-backend.onrender.com/sugerir-cid', {
+            // Define a URL da API baseada no ambiente (local ou produção)
+            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            const apiUrl = isLocal ? 'http://localhost:3000/sugerir-cid' : 'https://cida-i-backend.onrender.com/sugerir-cid';
+
+            const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ texto, especialidade }),
