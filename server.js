@@ -33,7 +33,7 @@ const corsOptions = {
 }
 
 // --- MIDDLEWARE (Funções que rodam a cada requisição) ---
-app.use(cors()); // ATENÇÃO: Permite todas as origens. Para produção, troque por `app.use(cors(corsOptions));`
+app.use(cors(corsOptions)); // ATENÇÃO: `app.use(cors());` permite todas as origens. Para produção, troque por `app.use(cors(corsOptions));`
 app.use(express.json()); // Permite ler o corpo JSON das requisições
 
 // --- INSTRUÇÃO DE SISTEMA PARA SEGURANÇA E FOCO ---

@@ -52,7 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Bloco try...catch para lidar com sucessos e falhas na comunicação com o backend.
         try {
             // Envia a requisição para o backend local.
-            const response = await fetch('http://localhost:3000/sugerir-cid', {
+            // Produção: (...) https://cida-i-backend.onrender.com/sugerir-cid
+            // Desenvolvimento: (...) http://localhost:3000/sugerir-cid
+            const response = await fetch('https://cida-i-backend.onrender.com/sugerir-cid', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ texto, especialidade }),
@@ -77,8 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error("Erro ao buscar sugestões:", error);
             // Monta uma mensagem de erro amigável para o usuário.
-            const mensagemErro = error.message.includes('Failed to fetch') 
-                ? 'Não foi possível conectar ao servidor. Verifique se ele está rodando e se não há bloqueio de rede (CORS).'
+            // Erros de rede (backend offline) ou CORS geralmente são 'TypeError'.
+            const isNetworkError = error instanceof TypeError && (error.message.includes('Failed to fetch') || error.message.includes('NetworkError'));
+            const mensagemErro = isNetworkError
+                ? 'Não foi possível conectar ao servidor. Verifique se o programa de análise (backend) está ativo e tente novamente.'
                 : error.message;
             listaCidsDiv.innerHTML = `<p class="error-message"><strong>Erro:</strong> ${mensagemErro}</p>`;
         
