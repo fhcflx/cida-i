@@ -149,7 +149,7 @@ Se ambos retornarem números de versão, o Node.js está instalado corretamente.
 
 No Windows, você pode usar o PowerShell, CMD ou o Git Bash (instalado junto com o Git).
 
-Clone o repositório e execute da mesma forma QUE NO Linux ou MacOS.
+Clone o repositório e execute da mesma forma que no Linux ou MacOS.
 
 ## 📄 Licença
 
