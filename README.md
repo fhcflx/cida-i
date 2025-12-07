@@ -20,9 +20,11 @@ Aplicação web que utiliza a API do Google Gemini para sugerir códigos da CID-
 
 ## 🚀 Acessar a Aplicação
 
-A aplicação está disponível para uso na web.
+<!-- A aplicação está disponível para uso na web. -->
 
-**[Clique aqui para acessar o CIDA.i ao vivo!](https://fhcflx.github.io/cida-i/)**
+<!-- **[Clique aqui para acessar o CIDA.i ao vivo!](https://fhcflx.github.io/cida-i/)** -->
+
+Para utilizar a aplicação, siga as [instruções](#-como-executar-o-projeto-localmente) para executá-lo localmente.
 
 <br>
 
@@ -56,12 +58,14 @@ A aplicação está disponível para uso na web.
 
 ## 🏗️ Arquitetura
 
-Este projeto utiliza uma arquitetura desacoplada, com o frontend e o backend hospedados em plataformas distintas para otimizar a performance e a segurança:
+Este projeto utilizou uma arquitetura desacoplada, com o frontend e o backend hospedados em plataformas distintas para otimizar a performance e a segurança:
 
 - **Frontend:** Hospedado como um site estático no **GitHub Pages**. É responsável por toda a interface do usuário.
-- **Backend:** Hospedado como um Web Service na **Render.com**. É responsável por processar as requisições, gerenciar a chave da API do Google e se comunicar com o modelo Gemini.
+- **Backend:** Hospedado como um Web Service na **Render.com**. Responsável por processar as requisições, gerenciar a chave da API do Google e se comunicar com o modelo Gemini.
 
-O fluxo é o seguinte: `Usuário no GitHub Pages ➡️ Requisição API ➡️ Backend na Render ➡️ API do Google Gemini`
+O fluxo foi o seguinte: `Usuário no GitHub Pages ➡️ Requisição API ➡️ Backend na Render ➡️ API do Google Gemini`
+
+O app funcionou a contento com este set-up, e suas respostas foram aparentemente dentro do contesto esperado. Após o teste, o serviço foi desativado, ficando disponível a opção de uso local (vide instruções).
 
 ---
 
@@ -80,7 +84,7 @@ O fluxo é o seguinte: `Usuário no GitHub Pages ➡️ Requisição API ➡️ 
 - **Frontend:** HTML5, CSS3, JavaScript (ES6+)
 - **Backend:** Node.js, Express.js
 - **Inteligência Artificial:** Google Gemini API (`@google/generative-ai`)
-- **Deployment:** GitHub Pages (Frontend), Render.com (Backend)
+- **Deployment testado:** GitHub Pages (Frontend), Render.com (Backend)
 - **Gerenciamento de Ambiente:** `dotenv`
 
 ---
@@ -123,6 +127,7 @@ node server.js
 ```
 
 Após executar o comando acima, a aplicação estará disponível em seu navegador no endereço http://localhost:3000.
+Para acessar o frontend, abra o arquivo index.html com seu navegador (se não funcionar com um deles, teste outro).
 
 ## 📄 Licença
 
