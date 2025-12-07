@@ -65,7 +65,7 @@ Este projeto utilizou uma arquitetura desacoplada, com o frontend e o backend ho
 
 O fluxo foi o seguinte: `Usuário no GitHub Pages ➡️ Requisição API ➡️ Backend na Render ➡️ API do Google Gemini`
 
-O app funcionou a contento com este set-up, e suas respostas foram aparentemente dentro do contesto esperado. Após o teste, o serviço foi desativado, ficando disponível a opção de uso local (vide instruções).
+O app funcionou a contento com este set-up, e suas respostas foram aparentemente dentro do contexto esperado. Após o teste, o serviço foi desativado, ficando disponível a opção de uso local (vide instruções).
 
 ---
 
@@ -91,7 +91,8 @@ O app funcionou a contento com este set-up, e suas respostas foram aparentemente
 
 ## 🚀 Como Executar o Projeto Localmente
 
-Siga os passos abaixo para executar a aplicação em seu ambiente local para desenvolvimento.
+Siga os passos abaixo para executar a aplicação em seu ambiente local para desenvolvimento (Linux/MacOS).
+Você precisa ter instalado o [Git](https://git-scm.com/) antes.
 
 ```bash
 # 1. Clone o repositório
@@ -127,7 +128,28 @@ node server.js
 ```
 
 Após executar o comando acima, a aplicação estará disponível em seu navegador no endereço http://localhost:3000.
+
 Para acessar o frontend, abra o arquivo index.html com seu navegador (se não funcionar com um deles, teste outro).
+
+## Instalando e executando no Windows
+
+1. Acesse o site oficial: https://nodejs.org
+
+2. Baixe a versão LTS recomendada.
+
+3. Execute o instalador e marque as opções padrão.
+
+4. Após a instalação, confirme que tudo está funcionando:
+
+```powershell
+node -v
+npm -v
+```
+Se ambos retornarem números de versão, o Node.js está instalado corretamente.
+
+No Windows, você pode usar o PowerShell, CMD ou o Git Bash (instalado junto com o Git).
+
+Clone o repositório e execute da mesma forma QUE NO Linux ou MacOS.
 
 ## 📄 Licença
 
