@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- ELEMENTOS DO DOM ---
     // Mapeia os elementos HTML para variáveis JavaScript para fácil manipulação.
     const especialidadeSelect = document.getElementById('especialidade');
+    const modelSelect = document.getElementById('model-select');
+    const modelDescription = document.getElementById('model-description');
     const hdaTextarea = document.getElementById('hda');
     const listaCidsDiv = document.getElementById('lista-cids');
     const sugerirBtn = document.getElementById('sugerir-btn');
@@ -29,16 +31,47 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
+     * Busca a lista de modelos de IA do backend e popula o dropdown.
+     */
+    async function carregarModelos() {
+        try {
+            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
+            const apiUrl = isLocal ? 'http://localhost:3000/models' : 'https://cida-i-backend.onrender.com/models';
+            
+            const response = await fetch(apiUrl);
+            if (!response.ok) throw new Error('Falha ao carregar modelos.');
+
+            const modelos = await response.json();
+
+            modelSelect.innerHTML = ''; // Limpa opções existentes
+            if (modelos.length === 0) throw new Error('Nenhum modelo foi retornado pelo servidor.');
+
+            modelos.forEach(modelo => {
+                const option = document.createElement('option');
+                option.value = modelo.id;
+                option.textContent = modelo.name;
+                option.dataset.description = modelo.description; // Armazena a descrição no elemento
+                modelSelect.appendChild(option);
+            });
+            atualizarDescricaoModelo(); // Atualiza a descrição para o primeiro modelo da lista
+        } catch (error) {
+            modelDescription.textContent = 'Não foi possível carregar os modelos de IA.';
+            console.error('Erro ao carregar modelos:', error);
+        }
+    }
+
+    /**
      * Função principal que é chamada ao clicar no botão.
      * Ela coleta os dados, envia para o backend e gerencia o estado da UI.
      */
     async function sugerirCids() {
         const especialidade = especialidadeSelect.value;
         const texto = hdaTextarea.value;
+        const modelName = modelSelect.value;
 
         // Validação inicial no frontend para evitar requisições desnecessárias.
-        if (!especialidade || texto.length < 10) {
-            listaCidsDiv.innerHTML = '<p>Selecione uma especialidade e digite uma descrição clínica detalhada (mínimo 10 caracteres).</p>';
+        if (!especialidade || !modelName || texto.length < 10) {
+            listaCidsDiv.innerHTML = '<p>Selecione uma especialidade, um modelo de IA e digite uma descrição clínica detalhada (mínimo 10 caracteres).</p>';
             return;
         }
 
@@ -47,18 +80,21 @@ document.addEventListener('DOMContentLoaded', () => {
         modelInfoDiv.innerHTML = '';
         hdaTextarea.disabled = true;
         sugerirBtn.disabled = true;
+        modelSelect.disabled = true;
         sugerirBtn.textContent = 'Analisando...';
 
         // Bloco try...catch para lidar com sucessos e falhas na comunicação com o backend.
         try {
             // Define a URL da API baseada no ambiente (local ou produção)
-            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            // Adicionamos a verificação 'window.location.protocol === 'file:'' para cobrir o caso de abrir o HTML diretamente.
+            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
             const apiUrl = isLocal ? 'http://localhost:3000/sugerir-cid' : 'https://cida-i-backend.onrender.com/sugerir-cid';
+            console.log(`[DEBUG] Ambiente detectado como ${isLocal ? 'Local' : 'Produção'}. Usando API: ${apiUrl}`);
 
             const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ texto, especialidade }),
+                body: JSON.stringify({ texto, especialidade, modelName }),
             });
 
             // Lê o corpo da resposta como JSON.
@@ -92,6 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Restaura o estado original da UI, permitindo uma nova requisição.
             hdaTextarea.disabled = false;
             sugerirBtn.disabled = false;
+            modelSelect.disabled = false;
             sugerirBtn.textContent = 'Sugerir CIDs 💡';
         }
     }
@@ -117,9 +154,22 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
     }
 
+    /**
+     * Atualiza o texto de descrição do modelo de IA selecionado.
+     */
+    function atualizarDescricaoModelo() {
+        const selectedOption = modelSelect.options[modelSelect.selectedIndex];
+        if (selectedOption && selectedOption.dataset.description) {
+            modelDescription.textContent = selectedOption.dataset.description;
+        }
+    }
+
     // --- INICIALIZAÇÃO E EVENTOS ---
-    // Chama a função para carregar as especialidades assim que a página carrega.
+    // Chama as funções de carregamento assim que a página carrega.
     carregarEspecialidades();
+    carregarModelos();
     // Adiciona o "ouvinte" de evento para o clique no botão.
     sugerirBtn.addEventListener('click', sugerirCids);
+    // Adiciona um ouvinte para atualizar a descrição quando o modelo for trocado.
+    modelSelect.addEventListener('change', atualizarDescricaoModelo);
 });

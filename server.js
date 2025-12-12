@@ -14,7 +14,7 @@ const app = express();
 const port = 3000;
 
 // --- DEFINIR O NOME DO MODELO COMO UMA CONSTANTE ---
-const MODEL_NAME = "gemini-2.5-pro"; // Usando o modelo mais recente para melhores resultados
+const MODEL_NAME = "gemini-2.5-flash"; // Usando o modelo mais recente para melhores resultados
 
 // --- CONFIGURAÇÃO DE CORS DINÂMICA ---
 // Lista de origens permitidas

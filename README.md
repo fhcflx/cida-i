@@ -58,7 +58,7 @@ Para utilizar a aplicação, siga as [instruções](#-como-executar-o-projeto-lo
 
 ## 🏗️ Arquitetura
 
-Este projeto utilizou uma arquitetura desacoplada, com o frontend e o backend hospedados em plataformas distintas para otimizar a performance e a segurança:
+Este projeto utiliza uma arquitetura desacoplada, o frontend e o backend foram testados em ambientes Linux/MacOS, hospedados em plataformas distintas para otimizar a performance e a segurança:
 
 - **Frontend:** Hospedado como um site estático no **GitHub Pages**. É responsável por toda a interface do usuário.
 - **Backend:** Hospedado como um Web Service na **Render.com**. Responsável por processar as requisições, gerenciar a chave da API do Google e se comunicar com o modelo Gemini.
@@ -120,16 +120,23 @@ GOOGLE_API_KEY=SUA_CHAVE_AQUI
 
 ## Execução do Servidor
 
-Iniciando a Aplicação
+A aplicação tem duas partes que precisam ser executadas em paralelo: o **Backend** (servidor) e o **Frontend** (interface no navegador).
+
+### Terminal 1: Executando o Backend
+
+Abra um terminal, navegue até a pasta do projeto e execute:
 
 ```bash
-# Execute o servidor Node.js
+# Inicia o servidor Node.js na porta 3000
 node server.js
 ```
+Você verá a mensagem `Servidor rodando em http://localhost:3000`. Deixe este terminal aberto.
 
-Após executar o comando acima, a aplicação estará disponível em seu navegador no endereço http://localhost:3000.
+### Acessando o Frontend
 
-Para acessar o frontend, abra o arquivo index.html com seu navegador (se não funcionar com um deles, teste outro).
+Com o backend rodando, simplesmente **abra o arquivo `index.html` diretamente no seu navegador** (Chrome, Firefox, etc.).
+
+A aplicação no seu navegador irá se comunicar automaticamente com o servidor local que você iniciou no passo anterior.
 
 ## Instalando e executando no Windows
 
