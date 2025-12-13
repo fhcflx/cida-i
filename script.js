@@ -2,44 +2,36 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- ELEMENTOS DO DOM ---
     // Mapeia os elementos HTML para variáveis JavaScript para fácil manipulação.
-    const especialidadeSelect = document.getElementById('especialidade');
+    const especialidadeInput = document.getElementById('especialidade');
     const modelSelect = document.getElementById('model-select');
     const modelDescription = document.getElementById('model-description');
     const hdaTextarea = document.getElementById('hda');
     const listaCidsDiv = document.getElementById('lista-cids');
     const sugerirBtn = document.getElementById('sugerir-btn');
     const modelInfoDiv = document.getElementById('model-info');
-
-    // --- CONSTANTES E DADOS ---
-    const ESPECIALIDADES = [
-        "Acupuntura", "Alergia e Imunologia", "Anestesiologia", "Angiologia", "Cardiologia", "Cirurgia Cardiovascular", "Cirurgia da Mão", "Cirurgia de Cabeça e Pescoço", "Cirurgia do Aparelho Digestivo", "Cirurgia Geral", "Cirurgia Oncológica", "Cirurgia Pediátrica", "Cirurgia Plástica", "Cirurgia Torácica", "Cirurgia Vascular", "Clínica Médica", "Coloproctologia", "Dermatologia", "Endocrinologia e Metabologia", "Endoscopia", "Gastroenterologia", "Genética Médica", "Geriatria", "Ginecologia e Obstetrícia", "Hematologia e Hemoterapia", "Homeopatia", "Infectologia", "Mastologia", "Medicina de Emergência", "Medicina de Família e Comunidade", "Medicina do Trabalho", "Medicina do Tráfego", "Medicina Esportiva", "Medicina Física e Reabilitação", "Medicina Intensiva", "Medicina Legal e Perícia Médica", "Medicina Nuclear", "Medicina Preventiva e Social", "Nefrologia", "Neurocirurgia", "Neurologia", "Nutrologia", "Oftalmologia", "Oncologia Clínica", "Ortopedia e Traumatologia", "Otorrinolaringologia", "Patologia", "Patologia Clínica/Medicina Laboratorial", "Pediatria", "Pneumologia", "Psiquiatria", "Radiologia e Diagnóstico por Imagem", "Radioterapia", "Reumatologia", "Urologia"
-    ];
-
+    
     // --- FUNÇÕES ---
 
     /**
-     * Popula o dropdown de especialidades com a lista em ordem alfabética.
+     * Retorna a URL base da API dependendo se o ambiente é local ou de produção.
      */
-    function carregarEspecialidades() {
-        especialidadeSelect.innerHTML = '<option value="">Selecione...</option>';
-        ESPECIALIDADES.sort().forEach(esp => {
-            const option = document.createElement('option');
-            option.value = esp;
-            option.textContent = esp;
-            especialidadeSelect.appendChild(option);
-        });
-    }
+    const getApiBaseUrl = () => {
+        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
+        return isLocal ? 'http://localhost:3000' : 'https://cida-i-backend.onrender.com';
+    };
 
     /**
      * Busca a lista de modelos de IA do backend e popula o dropdown.
      */
     async function carregarModelos() {
         try {
-            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
-            const apiUrl = isLocal ? 'http://localhost:3000/models' : 'https://cida-i-backend.onrender.com/models';
+            const baseUrl = getApiBaseUrl();
+            const response = await fetch(`${baseUrl}/models`);
             
-            const response = await fetch(apiUrl);
-            if (!response.ok) throw new Error('Falha ao carregar modelos.');
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Falha ao carregar modelos do servidor.');
+            }
 
             const modelos = await response.json();
 
@@ -49,13 +41,14 @@ document.addEventListener('DOMContentLoaded', () => {
             modelos.forEach(modelo => {
                 const option = document.createElement('option');
                 option.value = modelo.id;
-                option.textContent = modelo.name;
+                option.textContent = modelo.name; // Ex: "Gemini 1.5 Pro"
                 option.dataset.description = modelo.description; // Armazena a descrição no elemento
                 modelSelect.appendChild(option);
             });
             atualizarDescricaoModelo(); // Atualiza a descrição para o primeiro modelo da lista
         } catch (error) {
-            modelDescription.textContent = 'Não foi possível carregar os modelos de IA.';
+            // Exibe a mensagem de erro específica vinda do backend ou uma mensagem genérica.
+            modelDescription.textContent = `Erro: ${error.message}`;
             console.error('Erro ao carregar modelos:', error);
         }
     }
@@ -65,13 +58,13 @@ document.addEventListener('DOMContentLoaded', () => {
      * Ela coleta os dados, envia para o backend e gerencia o estado da UI.
      */
     async function sugerirCids() {
-        const especialidade = especialidadeSelect.value;
+        const especialidade = especialidadeInput.value.trim();
         const texto = hdaTextarea.value;
         const modelName = modelSelect.value;
 
         // Validação inicial no frontend para evitar requisições desnecessárias.
-        if (!especialidade || !modelName || texto.length < 10) {
-            listaCidsDiv.innerHTML = '<p>Selecione uma especialidade, um modelo de IA e digite uma descrição clínica detalhada (mínimo 10 caracteres).</p>';
+        if (!modelName || texto.length < 10) {
+            listaCidsDiv.innerHTML = '<p>Selecione um modelo de IA e digite uma descrição clínica detalhada (mínimo 10 caracteres).</p>';
             return;
         }
 
@@ -80,16 +73,14 @@ document.addEventListener('DOMContentLoaded', () => {
         modelInfoDiv.innerHTML = '';
         hdaTextarea.disabled = true;
         sugerirBtn.disabled = true;
+        especialidadeInput.disabled = true;
         modelSelect.disabled = true;
         sugerirBtn.textContent = 'Analisando...';
 
         // Bloco try...catch para lidar com sucessos e falhas na comunicação com o backend.
         try {
-            // Define a URL da API baseada no ambiente (local ou produção)
-            // Adicionamos a verificação 'window.location.protocol === 'file:'' para cobrir o caso de abrir o HTML diretamente.
-            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
-            const apiUrl = isLocal ? 'http://localhost:3000/sugerir-cid' : 'https://cida-i-backend.onrender.com/sugerir-cid';
-            console.log(`[DEBUG] Ambiente detectado como ${isLocal ? 'Local' : 'Produção'}. Usando API: ${apiUrl}`);
+            const apiUrl = `${getApiBaseUrl()}/sugerir-cid`;
+            console.log(`[DEBUG] Usando API: ${apiUrl}`);
 
             const response = await fetch(apiUrl, {
                 method: 'POST',
@@ -128,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Restaura o estado original da UI, permitindo uma nova requisição.
             hdaTextarea.disabled = false;
             sugerirBtn.disabled = false;
+            especialidadeInput.disabled = false;
             modelSelect.disabled = false;
             sugerirBtn.textContent = 'Sugerir CIDs 💡';
         }
@@ -165,8 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- INICIALIZAÇÃO E EVENTOS ---
-    // Chama as funções de carregamento assim que a página carrega.
-    carregarEspecialidades();
+    // Chama a função para carregar os modelos de IA assim que a página carrega.
     carregarModelos();
     // Adiciona o "ouvinte" de evento para o clique no botão.
     sugerirBtn.addEventListener('click', sugerirCids);
